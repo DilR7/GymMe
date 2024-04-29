@@ -43,7 +43,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -67,13 +75,104 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="App_Data\GymMe.mdf" />
+    <Content Include="App_Data\GymMe_log.ldf">
+      <DependentUpon>GymMe.mdf</DependentUpon>
+    </Content>
+    <Content Include="Model\GymMeModel.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>GymMeModel.Context.cs</LastGenOutput>
+      <DependentUpon>GymMeModel.edmx</DependentUpon>
+    </Content>
+    <Content Include="Model\GymMeModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>GymMeModel.edmx</DependentUpon>
+      <LastGenOutput>GymMeModel.cs</LastGenOutput>
+    </Content>
+    <Content Include="View\Customer\CustomerNavBar.aspx" />
+    <Content Include="View\Guest\LoginPage.aspx" />
+    <Content Include="View\Guest\RegisterPage.aspx" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Controller\AuthController.cs" />
+    <Compile Include="Factory\UserFactory.cs" />
+    <Compile Include="Handler\UserHandler.cs" />
+    <Compile Include="Model\GymMeModel.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GymMeModel.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\GymMeModel.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GymMeModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\GymMeModel.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>GymMeModel.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MsCart.cs">
+      <DependentUpon>GymMeModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MsSupplement.cs">
+      <DependentUpon>GymMeModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MsSupplementType.cs">
+      <DependentUpon>GymMeModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\MsUser.cs">
+      <DependentUpon>GymMeModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TransactionDetail.cs">
+      <DependentUpon>GymMeModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Model\TransactionHeader.cs">
+      <DependentUpon>GymMeModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\DatabaseSingleton.cs" />
+    <Compile Include="Repository\UserRepository.cs" />
+    <Compile Include="View\Customer\CustomerNavBar.aspx.cs">
+      <DependentUpon>CustomerNavBar.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Customer\CustomerNavBar.aspx.designer.cs">
+      <DependentUpon>CustomerNavBar.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Guest\GuestLayout.Master.cs">
+      <DependentUpon>GuestLayout.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Guest\GuestLayout.Master.designer.cs">
+      <DependentUpon>GuestLayout.Master</DependentUpon>
+    </Compile>
+    <Compile Include="View\Guest\LoginPage.aspx.cs">
+      <DependentUpon>LoginPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Guest\LoginPage.aspx.designer.cs">
+      <DependentUpon>LoginPage.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="View\Guest\RegisterPage.aspx.cs">
+      <DependentUpon>RegisterPage.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="View\Guest\RegisterPage.aspx.designer.cs">
+      <DependentUpon>RegisterPage.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EntityDeploy Include="Model\GymMeModel.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>GymMeModel.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Model\GymMeModel.edmx.diagram">
+      <DependentUpon>GymMeModel.edmx</DependentUpon>
+    </Content>
     <None Include="packages.config" />
+    <Content Include="View\Guest\GuestLayout.Master" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -81,6 +180,10 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
+  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
